@@ -8,14 +8,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_plate"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/rv_margin"
         tools:listitem="@layout/card_item"
         />
-    <Button
-        android:id="@+id/load"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
 
 </FrameLayout>

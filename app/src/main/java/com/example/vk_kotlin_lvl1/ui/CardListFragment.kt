@@ -5,25 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.vk_kotlin_lvl1.viewModel.CardListViewModel
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.vk_kotlin_lvl1.CardListViewModel
 import com.example.vk_kotlin_lvl1.R
 import com.example.vk_kotlin_lvl1.adapter.MyCardAdapter
-import com.example.vk_kotlin_lvl1.models.ImageModel
-import kotlinx.coroutines.flow.collect
+import com.example.vk_kotlin_lvl1.models.ImageItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CardListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = MyCardAdapter()
-    private lateinit var viewModel: CardListViewModel
-    private lateinit var addButton: Button
-
+    private val viewModel: CardListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,32 +35,31 @@ class CardListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CardListViewModel::class.java)
-        addButton = view.findViewById(R.id.load)
-
-        getImages()
-
+        getUpdates()
         recyclerView = view.findViewById(R.id.rv_plate)
-        val layoutManager = GridLayoutManager(view.context, 3)
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-
-        addButton.setOnClickListener {
-            viewModel.addImages(10)
-        }
-
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            delay(3000L)
+//            viewModel.setList(listOf(
+//                ImageItem("9vg","https://cdn2.thecatapi.com/images/9vg.jpg",667,1000),
+//                ImageItem("bgk","https://cdn2.thecatapi.com/images/bgk.gif",500,333),
+//                ImageItem("dj6","https://cdn2.thecatapi.com/images/dj6.jpg",1024,768)
+//            ))
+//        }
     }
 
-    private fun getImages() {
+    private fun getUpdates() {
         lifecycleScope.launch {
-            viewModel._list.collect {
-                setUpAdapter(it)
+            viewModel.list.collect {
+                updateAdapter(it)
             }
         }
     }
 
-    private fun setUpAdapter(items: List<ImageModel>) {
+    private fun updateAdapter(items: List<ImageItem>) {
         adapter.imagesList = items
     }
-
 }

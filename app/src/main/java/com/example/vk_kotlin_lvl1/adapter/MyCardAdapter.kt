@@ -1,6 +1,5 @@
 package com.example.vk_kotlin_lvl1.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,15 +7,14 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vk_kotlin_lvl1.R
-import com.example.vk_kotlin_lvl1.models.ImageModel
+import com.example.vk_kotlin_lvl1.models.ImageItem
 
 class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
 
-    var imagesList = listOf<ImageModel>()
+    var imagesList = listOf<ImageItem>()
         set(value) {
             field = value
             notifyDataSetChanged()
-            Log.d("NOTIFY", "N+")
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCardAdapter.CardViewHolder {
@@ -30,9 +28,9 @@ class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
 
         fun onBind(position: Int) {
             val item = imagesList[position]
-            Glide.with(itemView.context).load(item.url).dontTransform()
+            Glide.with(itemView.context)
+                .load(item.url)
                 .into(imageView)
-
         }
     }
 
