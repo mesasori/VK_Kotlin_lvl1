@@ -6,17 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.vk_kotlin_lvl1.viewModel.CardListViewModel
 import com.example.vk_kotlin_lvl1.R
 import com.example.vk_kotlin_lvl1.adapter.MyCardAdapter
 import com.example.vk_kotlin_lvl1.models.ImageModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -49,7 +46,7 @@ class CardListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         addButton.setOnClickListener {
-            viewModel.getImages(10)
+            viewModel.addImages(10)
         }
 
     }
@@ -57,12 +54,13 @@ class CardListFragment : Fragment() {
     private fun getImages() {
         lifecycleScope.launch {
             viewModel._list.collect {
-                updateAdapter(it)
+                setUpAdapter(it)
             }
         }
     }
 
-    private fun updateAdapter(items: List<ImageModel>) {
-        adapter.imagesList = adapter.imagesList + items
+    private fun setUpAdapter(items: List<ImageModel>) {
+        adapter.imagesList = items
     }
+
 }

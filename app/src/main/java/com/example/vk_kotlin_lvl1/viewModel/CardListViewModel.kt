@@ -1,6 +1,5 @@
 package com.example.vk_kotlin_lvl1.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vk_kotlin_lvl1.models.ImageModel
@@ -8,7 +7,6 @@ import com.example.vk_kotlin_lvl1.repository.Repository
 import com.example.vk_kotlin_lvl1.utils.AppConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -18,13 +16,21 @@ class CardListViewModel: ViewModel() {
     val _list = MutableStateFlow(listOf<ImageModel>())
 
     init {
-        getImages(20)
+        getImages()
     }
 
-    fun getImages(limit: Int) {
+    fun addImages(limit: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getImages(limit).collect {
-                _list.value = it
+            repository.addImages(limit).collect {
+                _list.value = _list.value + it
+            }
+        }
+    }
+
+    private fun getImages() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getImages().collect {
+                _list.emit(it)
             }
         }
     }
