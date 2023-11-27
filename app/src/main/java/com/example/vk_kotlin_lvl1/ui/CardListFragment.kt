@@ -51,14 +51,14 @@ class CardListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         if (adapter.imagesList.isEmpty()) {
-            repeat(10) {
-                Log.d("Fragment", "Before launch")
-                lifecycleScope.launch(Dispatchers.IO) {
-                    Log.d("Fragment", "Inside launch")
-                    viewModel.loadImages()
-                }
-                Log.d("Fragment", "After launch")
+
+            Log.d("Fragment", "Before launch")
+            lifecycleScope.launch(Dispatchers.IO) {
+                Log.d("Fragment", "Inside launch")
+                viewModel.loadImages()
             }
+            Log.d("Fragment", "After launch")
+
         }
     }
 
@@ -79,7 +79,11 @@ class CardListFragment : Fragment() {
 
                     Status.ERROR -> {
                         progressBar.visibility = View.INVISIBLE
-                        Toast.makeText(recyclerView.rootView.context, "ERROR!!!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            recyclerView.rootView.context,
+                            "ERROR!!!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
