@@ -40,16 +40,6 @@ class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
             val item = imagesList[position]
             val loader = ImageLoader.getInstance()
             loader.init(ImageLoaderConfiguration.createDefault(itemView.context))
-            /*val options = DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.ic_launcher_foreground)
-                .showImageForEmptyUri(R.drawable.ic_launcher_background)
-                .cacheInMemory()
-                .cacheOnDisc()
-                .build()
-            loader.displayImage(
-                item.url, imageView, options,
-                null
-            )*/
             Glide.with(itemView.context)
                 .load(item.url)
                 .into(imageView)
@@ -61,5 +51,7 @@ class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
     }
 
     override fun getItemCount() = imagesList.size
+
+
 
 }
