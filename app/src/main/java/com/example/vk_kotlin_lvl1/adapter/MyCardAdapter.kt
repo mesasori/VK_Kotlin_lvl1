@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vk_kotlin_lvl1.R
 import com.example.vk_kotlin_lvl1.models.ImageModel
-import com.nostra13.universalimageloader.core.DisplayImageOptions
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
@@ -28,7 +27,7 @@ class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCardAdapter.CardViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(com.example.vk_kotlin_lvl1.R.layout.card_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_item, parent, false)
 
         return CardViewHolder(view)
     }
