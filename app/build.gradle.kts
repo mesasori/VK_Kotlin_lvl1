@@ -14,6 +14,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "BASE_URL", "\"https://api.thecatapi.com/\"")
+        buildConfigField("String", "API_KEY", "\"live_EG2WcJ3UGgnxHbv1yVHRVnbZ1u5OHdEr9lQENhQwNvXoJ9N78ZTj3aOujLezwJlC\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

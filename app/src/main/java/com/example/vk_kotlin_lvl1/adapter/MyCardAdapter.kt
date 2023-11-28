@@ -13,7 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
 
 
-class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
+class MyCardAdapter: RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
 
     var imagesList = listOf<ImageModel>()
         set(value) {
@@ -37,8 +37,7 @@ class MyCardAdapter(): RecyclerView.Adapter<MyCardAdapter.CardViewHolder>() {
 
         fun onBind(position: Int) {
             val item = imagesList[position]
-            val loader = ImageLoader.getInstance()
-            loader.init(ImageLoaderConfiguration.createDefault(itemView.context))
+            if (item.url.contains(".gif")) imageView.scaleType = ImageView.ScaleType.FIT_XY
             Glide.with(itemView.context)
                 .load(item.url)
                 .into(imageView)

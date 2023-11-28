@@ -19,20 +19,13 @@ import com.example.vk_kotlin_lvl1.network.Status
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-class CardListFragment : Fragment() {
+class CardListFragment : Fragment(R.layout.fragment_card_list) {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = MyCardAdapter()
     private val viewModel: CardListViewModel by activityViewModels()
     private var columns = 0
     private lateinit var progressBar: ProgressBar
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_card_list, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,14 +35,8 @@ class CardListFragment : Fragment() {
 
         startListening()
 
-        /*val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        layoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE*/
         recyclerView.layoutManager = GridLayoutManager(view.context, columns)
         recyclerView.adapter = adapter
-
-        if (adapter.imagesList.isEmpty()) {
-            viewModel.loadImages()
-        }
     }
 
     private fun startListening() {

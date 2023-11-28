@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class Repository(private val apiService: ApiService) {
-    private val loadLimit = 100;
+    private val loadLimit = 100
     suspend fun loadImages(): Flow<ImageApiState> {
         return flow {
             try {
